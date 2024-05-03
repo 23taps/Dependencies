@@ -1,3 +1,4 @@
 {
-	"9.0.0": "https://raw.githubusercontent.com/23taps/Dependencies/master/Nimble/Nimble-9.0.0/Nimble.framework.zip"
+	"9.0.0": "https://raw.githubusercontent.com/23taps/Dependencies/master/Nimble/Nimble-9.0.0/Nimble.framework.zip",
+	"13.2.0": "https://raw.githubusercontent.com/23taps/Dependencies/master/Nimble/Nimble-13.2.0/Nimble.xcframework.zip"
 }
