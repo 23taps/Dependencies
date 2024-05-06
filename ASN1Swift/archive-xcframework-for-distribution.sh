@@ -4,7 +4,7 @@ set -x
 set -e
 
 # Pass scheme name as the first argument to the script
-NAME="TPInAppReceipt"
+NAME="ASN1Swift"
 
 # Build the scheme for all platforms that we plan to support
 for PLATFORM in "iOS" "iOS Simulator"; do
