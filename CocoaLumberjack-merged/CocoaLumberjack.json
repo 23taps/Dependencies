@@ -1,3 +1,4 @@
 {
-    "3.7.2": "https://github.com/23taps/Dependencies/raw/master/CocoaLumberjack-merged/CocoaLumberjack-3.7.2/CocoaLumberjack.framework.zip"
+    "3.7.2": "https://github.com/23taps/Dependencies/raw/master/CocoaLumberjack-merged/CocoaLumberjack-3.7.2/CocoaLumberjack.framework.zip",
+    "3.8.5": "https://github.com/23taps/Dependencies/raw/master/CocoaLumberjack-merged/CocoaLumberjack-3.8.5/CocoaLumberjack.xcframework.zip"
 }
