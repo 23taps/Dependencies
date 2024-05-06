@@ -1,3 +1,4 @@
 {
-    "3.9.1": "https://github.com/23taps/Dependencies/raw/master/OneSignal/OneSignal-3.9.1/OneSignal.framework.zip"
+    "3.9.1": "https://github.com/23taps/Dependencies/raw/master/OneSignal/OneSignal-3.9.1/OneSignal.framework.zip",
+    "3.12.9": "https://github.com/23taps/Dependencies/raw/master/OneSignal/OneSignal-3.12.9/OneSignal.xcframework.zip"
 }
