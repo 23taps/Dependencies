@@ -50,7 +50,7 @@ function buildFrameworks() {
       ARCHS="x86_64" \
       SKIP_INSTALL=NO \
       ENABLE_TESTABILITY=NO \
-      BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
+      BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
       MACH_O_TYPE=$TYPE
 
     # create folder to store compiled framework for simulator
@@ -70,10 +70,10 @@ function buildFrameworks() {
       -sdk iphoneos \
       -derivedDataPath derived_data \
       ONLY_ACTIVE_ARCHS=NO \
-      ARCHS="arm64 armv7" \
+      ARCHS="arm64" \
       SKIP_INSTALL=NO \
       ENABLE_TESTABILITY=NO \
-      BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
+      BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
       MACH_O_TYPE=$TYPE
 
     # create folder to store compiled framework for devices
