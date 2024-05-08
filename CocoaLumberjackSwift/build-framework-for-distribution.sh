@@ -117,8 +117,9 @@ for FRAMEWORKPATH in $FRAMEWORKPATHS ; do
           -output $UNIVERSAL_FRAMEWORK/$FRAMEWORK_NAME
 
         # copy simulator Swift public interface to universal framework
-        if [ -d $SIMULATOR_FRAMEWORK/Modules/$FRAMEWORK.swiftmodule ]; then
-            cp -r $SIMULATOR_FRAMEWORK/Modules/$FRAMEWORK.swiftmodule/* $UNIVERSAL_FRAMEWORK/Modules/$FRAMEWORK.swiftmodule
+        if [ -d $SIMULATOR_FRAMEWORK/Modules/$FRAMEWORK_NAME.swiftmodule ]; then
+            echo "moving"
+            cp -r $SIMULATOR_FRAMEWORK/Modules/$FRAMEWORK_NAME.swiftmodule/* $UNIVERSAL_FRAMEWORK/Modules/$FRAMEWORK_NAME.swiftmodule
         fi
         
         
