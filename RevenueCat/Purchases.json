@@ -1,3 +1,4 @@
 {
-	"3.10.7": "https://github.com/23taps/Dependencies/raw/master/RevenueCat/Purchases-3.10.7/Purchases.framework.zip"
+	"3.10.7": "https://github.com/23taps/Dependencies/raw/master/RevenueCat/Purchases-3.10.7/Purchases.framework.zip",
+	"5.37.0": "https://github.com/23taps/Dependencies/raw/ios26/RevenueCat/RevenueCat-5.37.0/RevenueCat.xcframework.zip"
 }
