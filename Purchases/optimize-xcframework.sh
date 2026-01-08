@@ -167,6 +167,23 @@ with open(info_plist_path, 'wb') as f:
 print(f"Updated Info.plist: kept {len(filtered_libraries)} out of {len(original_libraries)} libraries")
 PYTHON_SCRIPT
 
+# Remove old code signature since we modified Info.plist
+echo "Removing old code signature..."
+if [ -d "$XCFRAMEWORK_PATH/_CodeSignature" ]; then
+    rm -rf "$XCFRAMEWORK_PATH/_CodeSignature"
+    echo "  Removed _CodeSignature folder"
+fi
+
+# Re-sign the xcframework with an ad-hoc signature
+# This is required for Xcode to accept the modified xcframework
+echo "Re-signing xcframework..."
+codesign --force --sign - --timestamp=none "$XCFRAMEWORK_PATH"
+if [ $? -eq 0 ]; then
+    echo "  Successfully re-signed xcframework"
+else
+    echo "  Warning: Re-signing failed, but continuing..."
+fi
+
 # Create optimized zip with _optimized suffix initially
 OPTIMIZED_ZIP="${ZIP_FILE%.zip}_optimized.zip"
 echo "Creating optimized zip file..."
