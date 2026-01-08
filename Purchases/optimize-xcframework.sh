@@ -175,14 +175,41 @@ if [ -d "$XCFRAMEWORK_PATH/_CodeSignature" ]; then
 fi
 
 # Re-sign the xcframework with an ad-hoc signature
-# This is required for Xcode to accept the modified xcframework
+# We need to sign each framework slice individually, then the root
 echo "Re-signing xcframework..."
-codesign --force --sign - --timestamp=none "$XCFRAMEWORK_PATH"
-if [ $? -eq 0 ]; then
-    echo "  Successfully re-signed xcframework"
-else
-    echo "  Warning: Re-signing failed, but continuing..."
-fi
+for slice_dir in "$XCFRAMEWORK_PATH"/*; do
+    if [ -d "$slice_dir" ]; then
+        slice_name=$(basename "$slice_dir")
+        
+        # Skip non-slice directories
+        if [ "$slice_name" == "_CodeSignature" ] || [ "$slice_name" == "Info.plist" ]; then
+            continue
+        fi
+        
+        # Look for framework inside the slice
+        framework_path=""
+        if [ -d "$slice_dir/RevenueCat.framework" ]; then
+            framework_path="$slice_dir/RevenueCat.framework"
+        fi
+        
+        if [ -n "$framework_path" ] && [ -d "$framework_path" ]; then
+            echo "  Signing framework in slice: $slice_name"
+            
+            # Remove old signature if exists
+            if [ -d "$framework_path/_CodeSignature" ]; then
+                rm -rf "$framework_path/_CodeSignature"
+            fi
+            
+            # Sign the framework
+            codesign --force --sign - --timestamp=none "$framework_path" 2>/dev/null || true
+        fi
+    fi
+done
+
+# Finally, sign the xcframework root
+echo "Signing xcframework root..."
+codesign --force --sign - --timestamp=none "$XCFRAMEWORK_PATH" 2>/dev/null || true
+echo "  Re-signing complete"
 
 # Create optimized zip with _optimized suffix initially
 OPTIMIZED_ZIP="${ZIP_FILE%.zip}_optimized.zip"
