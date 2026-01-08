@@ -1,0 +1,2 @@
+# Track all zip files with Git LFS
+*.zip filter=lfs diff=lfs merge=lfs -text
