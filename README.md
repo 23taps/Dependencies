@@ -126,23 +126,31 @@ Most other folders only need the zip placed in a version folder and a JSON entry
 |------------|----------|-------|
 | OneSignal | `OneSignal/*.json` | Multiple products (Core, Extension, Notifications, …), each with its own manifest |
 | AWS (Core, Cognito, S3) | `AWSCore/*.json`, etc. | Framework zips |
-| Finch, Nimble, APNGKit | `{Name}/{Name}.json` | Single-product zips |
-| ASN1Swift, TPInAppReceipt | `{Name}/{Name}.json` | Can be built from source (see below) |
-| CocoaLumberjack | `CocoaLumberjack/*.json` | Several distribution variants in subfolders |
+| Nimble, APNGKit | `{Name}/{Name}.json` | Single-product zips |
+| ASN1Swift, TPInAppReceipt, CocoaLumberjack, CocoaLumberjackSwift, Finch | `{Name}/{Name}-xcframework.json` | Built from source — see [Building from source](#building-from-source). The legacy `{Name}/{Name}.json` feeds still serve the old fat frameworks and are unchanged |
 
 ---
 
 ## Building from source
 
-Some dependencies include scripts for archiving frameworks locally instead of downloading vendor binaries:
+Five dependencies are built here rather than downloaded from a vendor, by the tooling in [`Tools/`](Tools/README.md):
 
-| Folder | Script | Purpose |
-|--------|--------|---------|
-| `ASN1Swift/` | `archive-framework-for-distribution.sh`, `archive-xcframework-for-distribution.sh` | Build from Swift package |
-| `TPInAppReceipt/` | `archive-framework-for-distribution.sh`, `archive-xcframework-for-distribution.sh` | Build from Xcode project |
-| `CocoaLumberjackSwift/` | `build-framework-for-distribution.sh`, `build-xcframeworks-for-distribution.sh` | Build Lumberjack xcframeworks |
+```bash
+./Tools/build-xcframework.sh --all
+./Tools/verify-xcframework.sh --all
+```
 
-After building, move the output zip into a new version folder and update the manifest as described above.
+| Product | Upstream | Version |
+|---------|----------|---------|
+| `ASN1Swift` | tikhop/ASN1Swift | 1.2.3 |
+| `TPInAppReceipt` | tikhop/TPInAppReceipt | 3.3.0 |
+| `CocoaLumberjack` | CocoaLumberjack/CocoaLumberjack | 3.8.5 |
+| `CocoaLumberjackSwift` | CocoaLumberjack/CocoaLumberjack | 3.8.5 |
+| `Finch` | zoul/Finch | 1.0.3 |
+
+Each build clones a pinned commit, produces iOS device and iOS Simulator slices, writes the zip and a `BUILD-RECORD.md` into the version folder, and adds the keys to that product's `*-xcframework.json` manifest. Verification links both slices and runs the product on a simulator against independently derived expectations. See [Tools/README.md](Tools/README.md) for recipes, hooks and the reasoning.
+
+The per-folder `archive-*.sh` / `build-*.sh` scripts predate this and produce the legacy fat frameworks, which cannot carry an arm64 simulator slice. They are kept for reference only.
 
 ---
 
